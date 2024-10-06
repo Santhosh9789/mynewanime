@@ -24,10 +24,12 @@ jobs:
     - name: Install dependencies
       run: npm install  # Install project dependencies
 
-    - name: Set Google Application Credentials
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
-      run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" > $GOOGLE_APPLICATION_CREDENTIALS  # Save the service account key to a file
+    - name: Set up Google Application Credentials
+      run: |
+        echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" > $HOME/service-account.json
+        echo "Service account key created"
 
     - name: Deploy to Firebase
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: $HOME/service-account.json  # Set the environment variable for the service account key
       run: firebase deploy --project websampleone-f087b  # Deploy to your Firebase project
