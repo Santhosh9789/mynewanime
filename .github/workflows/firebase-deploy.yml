@@ -41,4 +41,4 @@ jobs:
         fi
 
     - name: Deploy to Firebase
-      run: firebase deploy --token ${{ 1//0gjCRGZWuv5LTCgYIARAAGBASNwF-L9Ir3zX25J8_2N9WlbSEdptTQ421qH0KlNREuxdzHO8FzsTkwhM1Qdzq31P3dr0HMYZYC7U }}  # Use your Firebase token for deployment
+      run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
