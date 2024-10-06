@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "public",  // Change this to your static files directory
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html" // Redirect all routes to index.html
+      }
+    ]
+  }
+}
