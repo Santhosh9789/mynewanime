@@ -1,0 +1,40 @@
+name: Deploy to Firebase
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name if it's different
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  # Specify your Node.js version
+
+    - name: Install dependencies
+      run: npm install firebase  # Install the Firebase SDK
+
+    - name: Install Firebase Tools
+      run: npm install -g firebase-tools  # Install Firebase CLI
+
+    - name: Build project (if applicable)
+      run: |
+        if [ -f package.json ]; then
+          if grep -q '"build":' package.json; then
+            npm run build  # Run the build script if it exists
+          else
+            echo "No build script found in package.json. Skipping build step."
+          fi
+        else
+          echo "No package.json found. Skipping install and build steps."
+        fi
+
+    - name: Deploy to Firebase
+      run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
