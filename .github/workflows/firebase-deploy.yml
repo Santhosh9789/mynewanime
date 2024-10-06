@@ -3,7 +3,7 @@ name: Firebase Deploy
 on:
   push:
     branches:
-      - main  # or whichever branch you want to trigger the deployment
+      - main  # Change this to the branch you want to trigger the deployment
 
 jobs:
   build:
@@ -16,17 +16,24 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '18'  # Ensure to use a Node.js version that works with Firebase
+        node-version: '14'  # Ensure the Node.js version matches your project requirements
 
     - name: Install Firebase CLI
       run: npm install -g firebase-tools
 
-    - name: Authenticate to Firebase
+    - name: Install Google Cloud SDK
+      run: |
+        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list > /dev/null
+        sudo apt-get install apt-transport-https ca-certificates gnupg
+        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+        sudo apt-get update && sudo apt-get install google-cloud-sdk
+
+    - name: Set up Firebase Authentication
       env:
         FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
       run: |
-        echo $FIREBASE_SERVICE_ACCOUNT_KEY > ${HOME}/firebase-key.json
-        firebase auth:import ${HOME}/firebase-key.json --project websampleone-f087b
+        echo $FIREBASE_SERVICE_ACCOUNT_KEY > "${HOME}/firebase-key.json"
+        gcloud auth activate-service-account --key-file="${HOME}/firebase-key.json"
 
     - name: Deploy to Firebase
-      run: firebase deploy --project websampleone-f087b --non-interactive
+      run: firebase deploy --project websampleone-f087b --token "$(gcloud auth print-access-token)"
