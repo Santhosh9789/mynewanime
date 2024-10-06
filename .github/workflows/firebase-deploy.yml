@@ -24,8 +24,10 @@ jobs:
     - name: Install dependencies
       run: npm install  # Install project dependencies
 
-    - name: Set Firebase project
-      run: firebase use --add --token ${{ secrets.FIREBASE_TOKEN }} websampleone-f087b  # Specify your Firebase project ID
+    - name: Set Google Application Credentials
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
+      run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" > $GOOGLE_APPLICATION_CREDENTIALS  # Save the service account key to a file
 
     - name: Deploy to Firebase
-      run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}  # Use your Firebase token for deployment
+      run: firebase deploy --project websampleone-f087b  # Deploy to your Firebase project
