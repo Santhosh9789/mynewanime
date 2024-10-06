@@ -18,11 +18,15 @@ jobs:
       with:
         node-version: '18'  # Use Node.js version 18.x
 
+    - name: Install Firebase Tools using npm
+      run: npm install -g firebase-tools  # Install Firebase CLI via npm
+
+    # Alternatively, if you want to use the curl command, comment the above and uncomment the below:
+    # - name: Install Firebase Tools using curl
+    #   run: curl -sL https://firebase.tools | bash  # Install Firebase CLI via curl
+
     - name: Install dependencies
       run: npm install firebase  # Install the Firebase SDK
-
-    - name: Install Firebase Tools
-      run: npm install -g firebase-tools  # Install Firebase CLI
 
     - name: Build project (if applicable)
       run: |
@@ -37,4 +41,4 @@ jobs:
         fi
 
     - name: Deploy to Firebase
-      run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}  # Use the secret
+      run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}  # Use your Firebase token for deployment
