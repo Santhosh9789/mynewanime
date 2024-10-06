@@ -1,32 +1,32 @@
-name: Deploy to Firebase
+name: Firebase Deploy
 
 on:
   push:
     branches:
-      - main  # Change this to your main branch name if it's different
+      - main  # or whichever branch you want to trigger the deployment
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout Repository
       uses: actions/checkout@v2
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '18'  # Use Node.js version 18.x
+        node-version: '14'  # Ensure to use a Node.js version that works with Firebase
 
-    - name: Install Firebase Tools
+    - name: Install Firebase CLI
       run: npm install -g firebase-tools
 
-    - name: Set up Firebase Authentication
+    - name: Authenticate to Firebase
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-      run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > /tmp/firebase-key.json
+        FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+      run: |
+        echo $FIREBASE_SERVICE_ACCOUNT_KEY > ${HOME}/firebase-key.json
+        firebase auth:import ${HOME}/firebase-key.json --project websampleone-f087b
 
     - name: Deploy to Firebase
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: /tmp/firebase-key.json
-      run: firebase deploy --project websampleone-f087b
+      run: firebase deploy --project websampleone-f087b --non-interactive
