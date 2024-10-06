@@ -2,13 +2,13 @@
   "name": "mynewanime",
   "version": "1.0.0",
   "description": "A sample Firebase project for deployment.",
-  "main": "index.js", // Change this to your entry file if needed
+  "main": "index.js",
   "scripts": {
-    "build": "echo 'No build script defined'", // Define your build command if you have one
-    "start": "echo 'Starting application...'" // Change this to your start command
+    "build": "echo 'No build script defined'",
+    "start": "echo 'Starting application...'"
   },
   "dependencies": {
-    "firebase": "^9.0.0"  // Specify the version you need for Firebase
+    "firebase": "^9.0.0"
   },
   "devDependencies": {},
   "keywords": [],
