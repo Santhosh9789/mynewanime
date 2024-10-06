@@ -1,4 +1,4 @@
-{name: Deploy to Firebase
+name: Deploy to Firebase
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
     #   run: curl -sL https://firebase.tools | bash  # Install Firebase CLI via curl
 
     - name: Install dependencies
-      run: npm install firebase  # Install the Firebase SDK
+      run: npm install  # Install your project's dependencies
 
     - name: Build project (if applicable)
       run: |
