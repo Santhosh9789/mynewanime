@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '18'  # Ensure this matches your project requirements
+        node-version: '14'  # Ensure this matches your project requirements
 
     - name: Install Firebase Tools
       run: npm install -g firebase-tools
@@ -26,7 +26,7 @@ jobs:
         FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
       run: |
         echo "$FIREBASE_SERVICE_ACCOUNT_KEY" > "${HOME}/firebase-key.json"
-        firebase login:ci --token "$(gcloud auth activate-service-account --key-file=${HOME}/firebase-key.json)"
+        firebase login --token "$(gcloud auth activate-service-account --key-file=${HOME}/firebase-key.json)"
 
     - name: Build the project
       run: npm run build  # Change this if your build command is different
