@@ -26,13 +26,9 @@ jobs:
         FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
       run: |
         echo "$FIREBASE_SERVICE_ACCOUNT_KEY" > "${HOME}/firebase-key.json"
-        export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/firebase-key.json"
-
-    - name: Prepare for Deployment
-      run: |
-        mkdir -p public  # Create a public directory if it doesn't exist
-        cp -R * public/  # Copy all files to the public directory; adjust this if needed
+        # Authenticate with Firebase using the service account key
+        firebase login:ci --token "$(cat ${HOME}/firebase-key.json)"
 
     - name: Deploy to Firebase Hosting
       run: |
-        firebase deploy --project websampleone-f087b --non-interactive
+        firebase deploy --project websampleone-f087b --non-interactive --token "$(cat ${HOME}/firebase-key.json)"
