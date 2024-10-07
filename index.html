@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,9 +50,10 @@
         button:hover {
             background-color: #218838;
         }
-        video {
-            width: 600px; /* Adjust video size as needed */
-            margin-bottom: 20px;
+        iframe {
+            width: 560px; /* Adjust iframe width */
+            height: 315px; /* Adjust iframe height */
+            border: none; /* Remove border */
         }
     </style>
 </head>
@@ -69,14 +69,16 @@
 
     <div class="video-container" id="videoContainer">
         <h1>Video Page</h1>
-        <video controls>
-            <source src="https://youtu.be/0wMBz2xdI_s?si=s_80Fe1B6366sLjr" type="video/mp4"> <!-- Replace with your video URL -->
-            Your browser does not support the video tag.
-        </video>
-        <video controls>
-            <source src="another_video_url.mp4" type="video/mp4"> <!-- Replace with another video URL -->
-            Your browser does not support the video tag.
-        </video>
+        <iframe 
+            width="560" 
+            height="315" 
+            src="https://www.youtube.com/embed/0wMBz2xdI_s?si=s_80Fe1B6366sLjr" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+        </iframe> <!-- Embedded YouTube Video -->
     </div>
 
     <!-- Firebase SDK -->
