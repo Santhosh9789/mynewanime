@@ -26,6 +26,12 @@ uploadButton.addEventListener('click', () => {
     });
 });
 
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        window.location.href = 'storage.html';  // Redirect to storage access page
+    }
+});
+
 function displayUploadedFiles() {
     const fileList = document.getElementById('fileList');
     fileList.innerHTML = '';
