@@ -28,6 +28,9 @@ jobs:
         echo "$FIREBASE_SERVICE_ACCOUNT_KEY" > "${HOME}/firebase-key.json"
         firebase login:ci --token "$(gcloud auth activate-service-account --key-file=${HOME}/firebase-key.json)"
 
+    - name: Build the project
+      run: npm run build  # Change this if your build command is different
+
     - name: Deploy to Firebase Hosting
       run: |
         firebase deploy --project websampleone-f087b --token "$(gcloud auth print-access-token)"
