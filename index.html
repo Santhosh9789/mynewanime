@@ -22,13 +22,6 @@
             text-align: center;
             width: 300px; /* Adjusted width */
         }
-        .profile-picture {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-        }
         input[type="email"], input[type="password"], input[type="file"] {
             width: 100%;
             padding: 10px;
@@ -81,7 +74,7 @@
 
     <script>
         // Handle login form submission
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
@@ -97,7 +90,7 @@
         });
 
         // Handle file upload
-        document.getElementById('uploadButton').addEventListener('click', async () => {
+        document.getElementById('uploadButton').addEventListener('click', () => {
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
 
