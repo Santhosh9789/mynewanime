@@ -27,7 +27,7 @@ jobs:
       run: |
         echo "$FIREBASE_SERVICE_ACCOUNT_KEY" > "${HOME}/firebase-key.json"
         # Set the environment variable for Firebase
-        export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/firebase-key.json"
+        # export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/firebase-key.json"
 
     - name: Build the project
       run: npm run build  # Change this if your build command is different
