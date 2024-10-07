@@ -55,6 +55,13 @@
             height: 315px; /* Adjust iframe height */
             border: none; /* Remove border */
         }
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -69,12 +76,10 @@
 
     <div class="video-container" id="videoContainer">
         <h1>Video Page</h1>
+        <img src="https://raw.githubusercontent.com/Santhosh9789/mynewanime/main/Image%20foulder/Screenshot%20(52).png" alt="Profile Picture" class="profile-picture"> <!-- Profile image -->
         <iframe 
-            width="560" 
-            height="315" 
             src="https://www.youtube.com/embed/0wMBz2xdI_s?si=s_80Fe1B6366sLjr" 
             title="YouTube video player" 
-            frameborder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
             referrerpolicy="strict-origin-when-cross-origin" 
             allowfullscreen>
