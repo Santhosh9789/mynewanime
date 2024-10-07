@@ -26,12 +26,13 @@ jobs:
         FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
       run: |
         echo "$FIREBASE_SERVICE_ACCOUNT_KEY" > "${HOME}/firebase-key.json"
-        # Set the environment variable for Firebase
-        # export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/firebase-key.json"
+        export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/firebase-key.json"
 
-    - name: Build the project
-      run: npm run build  # Change this if your build command is different
+    - name: Prepare for Deployment
+      run: |
+        mkdir -p public  # Create a public directory if it doesn't exist
+        cp -R * public/  # Copy all files to the public directory; adjust this if needed
 
     - name: Deploy to Firebase Hosting
       run: |
-        firebase deploy --project websampleone-f087b --token "${{ secrets.FIREBASE_TOKEN }}"
+        firebase deploy --project websampleone-f087b --non-interactive
