@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login and File Upload</title>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             background-image: url('https://raw.githubusercontent.com/Santhosh9789/mynewanime/main/Image%20foulder/Screenshot%20(34).png'); /* Background image */
@@ -22,7 +23,14 @@
             text-align: center;
             width: 300px; /* Adjusted width */
         }
-        input[type="email"], input[type="password"], input[type="file"] {
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        input[type="email"], input[type="password"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -42,9 +50,64 @@
         button:hover {
             background-color: #218838;
         }
-        .upload-container {
-            display: none; /* Hidden initially */
-        }
-        .file-list {
-            margin-top: 20px;
-       
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://raw.githubusercontent.com/Santhosh9789/mynewanime/main/Image%20foulder/Screenshot%20(91).png" alt="Profile Picture" class="profile-picture"> <!-- Profile image -->
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Log In</button>
+        </form>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase app and authentication services
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js";
+
+        // Your Firebase configuration object
+        const firebaseConfig = {
+            apiKey: "AIzaSyDlAuFjHeiYfoixuCkuscDNktlDH0iJ4Jg",
+            authDomain: "websampleone-f087b.firebaseapp.com",
+            projectId: "websampleone-f087b",
+            storageBucket: "websampleone-f087b.appspot.com",
+            messagingSenderId: "784460008070",
+            appId: "1:784460008070:web:1be80f934098a5ad551f07"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent the form from submitting normally
+            
+            const email = document.getElementById('email').value; // Email input
+            const password = document.getElementById('password').value;
+
+            // Basic email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            try {
+                // Sign in user
+                await signInWithEmailAndPassword(auth, email, password);
+                alert('Login successful!');
+                // Redirect to another page after successful login
+                window.location.href = "dashboard.html"; // Replace with your dashboard or homepage
+            } catch (error) {
+                console.error(error);
+                alert('Login failed: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
