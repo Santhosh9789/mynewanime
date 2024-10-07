@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             background-image: url('https://raw.githubusercontent.com/Santhosh9789/mynewanime/main/Image%20foulder/Screenshot%20(34).png'); /* Background image */
@@ -104,8 +103,13 @@
                 // Redirect to another page after successful login
                 window.location.href = "dashboard.html"; // Replace with your dashboard or homepage
             } catch (error) {
-                console.error(error);
-                alert('Login failed: ' + error.message);
+                if (error.code === 'auth/user-not-found') {
+                    alert('No user found with this email.');
+                } else if (error.code === 'auth/wrong-password') {
+                    alert('Incorrect password.');
+                } else {
+                    alert('Login failed: ' + error.message);
+                }
             }
         });
     </script>
