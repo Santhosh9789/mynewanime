@@ -27,5 +27,5 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}
         publish_dir: ./path-to-your-built-files  # Adjust the path to the folder that contains your built files
