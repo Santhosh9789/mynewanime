@@ -1,32 +1,31 @@
-name: Deploy to Azure Web App
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Change this if your main branch is named differently
+      - main  # Ensure the branch name is correct
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2  # Checks out your repository code
+      uses: actions/checkout@v2
 
-    - name: Set up Node.js (optional, if you're using Node.js)
+    - name: Set up Node.js (if applicable)
       uses: actions/setup-node@v2
       with:
-        node-version: '14'  # Change to your preferred Node.js version
+        node-version: '14'  # Adjust Node.js version if needed
 
-    - name: Install Dependencies (if using Node.js)
-      run: npm install  # Adjust this command based on your project
+    - name: Install Dependencies
+      run: npm install  # Only required if your project has a build step
 
-    - name: Build code (optional, if you have a build step)
-      run: npm run build  # Adjust this command based on your project
+    - name: Build the project
+      run: npm run build  # Only required if your project has a build step
 
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        app-name: ${{ secrets.AZURE_WEBAPP_NAME }}  # Ensure this matches your Azure Web App name
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Ensure this contains the published profile content
-        package: ./path-to-your-built-files  # Specify the path to your built files
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./path-to-your-built-files  # Adjust the path to the folder that contains your built files
