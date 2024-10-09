@@ -1,0 +1,32 @@
+name: Deploy to Azure Web App
+
+on:
+  push:
+    branches:
+      - main  # Change this if your main branch is named differently
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # Checks out your repository code
+
+    - name: Set up Node.js (optional, if you're using Node.js)
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Change to your preferred Node.js version
+
+    - name: Install Dependencies (if using Node.js)
+      run: npm install  # Adjust this command based on your project
+
+    - name: Build code (optional, if you have a build step)
+      run: npm run build  # Adjust this command based on your project
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ secrets.AZURE_WEBAPP_NAME }}  # Ensure this matches your Azure Web App name
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Ensure this contains the published profile content
+        package: ./path-to-your-built-files  # Specify the path to your built files
